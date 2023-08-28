@@ -10,40 +10,67 @@ class ProdutoController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        //dd('Produto');
         $produtos = Produto::get();
-        dd($produtos);
+        return view (('produto.produto_index'), ['produtos' => $produtos]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
+
     public function create()
     {
-        $produtos = new Produto();
-        $produtos->nome = 'sabão em pó';
-        $produtos->quantidade = 70;
-        $produtos->preco = 10.5;
-        $produtos->save();
+
+        return view ('produto.produto_create');
+
+        //$produtos = new Produto();
+        //$produtos->nome = 'sabão em pó';
+        //$produtos->quantidade = 70;
+        //$produtos->preco = 10.5;
+        //$produtos->save();
     }
 
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+
+        $messages = [
+            'nome.required' => 'o :attribute é obrigatório!',
+            'quantidade.required' => 'a :attribute é obrigatório!',
+            'preco.required' => 'o :attribute é obrigatório!',
+        ];
+
+        $validated = $request->validate([
+            'nome'          => 'required|min:5',
+            'quantidade'    => 'required',
+            'preco'         => 'required'
+        ],  $messages);
+
+        $produtos = new Produto();
+        $produtos->nome         = $request->nome ;
+        $produtos->quantidade   = $request->quantidade;
+        $produtos->preco        = $request->preco;
+        $produtos->save();
+
+        return redirect()->route('produto.index')->with('status', 'Produto criado com sucesso!!');
     }
 
     /**
      * Display the specified resource.
      */
+
     public function show(string $id)
     {
-        $produtos = Produto::find($id);
-        dd($produtos);
+        $produto = Produto::find($id);
+        //dd($produtos);
+        return view('produto.produto_show', ['produto' => $produto]);
     }
 
     /**
@@ -52,10 +79,8 @@ class ProdutoController extends Controller
     public function edit(string $id)
     {
         $produtos = Produto::find($id);
-        $produtos->nome = 'agua sanitaria';
-        $produtos->quantidade = 90;
-        $produtos->preco = 3.5;
-        $produtos->save();
+        return view('produto.produto_edit', ['produto' => $produtos]);
+
     }
 
     /**
@@ -63,7 +88,25 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $messages = [
+            'nome.required' => 'o :attribute é obrigatório!',
+            'quantidade.required' => 'a :attribute é obrigatório!',
+            'preco.required' => 'o :attribute é obrigatório!',
+        ];
+
+        $validated = $request->validate([
+            'nome'          => 'required|min:5',
+            'quantidade'    => 'required',
+            'preco'         => 'required'
+        ],  $messages);
+
+        $produto = Produto::find($id);
+        $produto->nome                  = $request->nome;
+        $produto->quantidade            = $request->quantidade;
+        $produto->preco                 = $request->preco;
+        $produto-save();
+
+        return redirect()->route('produto.index')->with('status', 'Produto alterado com sucesso');
     }
 
     /**
@@ -73,5 +116,7 @@ class ProdutoController extends Controller
     {
         $produtos = Produto::find($id);
         $produtos->delete();
+
+        return redirect()->route('produto.index')->with('status', 'Produto excluido com sucesso');
     }
 }

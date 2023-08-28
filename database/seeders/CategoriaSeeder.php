@@ -16,5 +16,9 @@ class CategoriaSeeder extends Seeder
         DB::table('categorias')->insert([
             'nome' => 'Material de limpeza',
         ]);
+
+            DB::table('categorias')->insert([
+                'nome' => 'Artigos para Jardins',
+        ]);
     }
 }
