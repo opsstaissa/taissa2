@@ -22,6 +22,7 @@ Produtos<br>
 <table class="table table-striped">
   <tr>
     <th>id</th>
+    <th>Categorias</th>
     <th>Nome</th>
     <th>Preço</th>
     <th>Quantidade</th>
@@ -31,6 +32,7 @@ Produtos<br>
 @foreach ($produtos as $produto)
   <tr>
     <td>{{ $produto->id }}</td>
+    <td>{{ $produto->categorias->nome }}</td>
     <td>{{ $produto->nome }}</td>
     <td>{{ $produto->preco }}</td>
     <td>{{ $produto->quantidade }}</td>

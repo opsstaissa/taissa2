@@ -16,7 +16,16 @@ Formulário de criação: <br>
 @endif
 
 <form method="POST" action="{{ url('/produto/create') }}">
-    @csrf
+    
+        @csrf
+
+    <label class="form-label" for="cars">Escolha uma categoria:</label>
+
+<select class="form-control" name="categoria_id" id="categoria_id">
+    @foreach ($categorias as $categorias)
+        <option value="{{ $categorias->id }}">{{ $categorias->nome }}</option>
+    @endforeach
+</select>
  
   <label class="form-label" for="nome">Nome:</label><br>
   <input class="form-control" type="text" name="nome"><br>

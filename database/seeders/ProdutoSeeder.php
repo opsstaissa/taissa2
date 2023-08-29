@@ -17,12 +17,23 @@ class ProdutoSeeder extends Seeder
             'nome' => 'detergente',
             'quantidade' => 10,
             'preco' => 20.10,
+            'categoria_id' => 1
         ]);
 
         DB::table('produtos')->insert([
-            'nome' => 'sabão',
-            'quantidade' => 15,
-            'preco' => 8.10,
+            'nome' => 'Limpol',
+            'quantidade' => 20,
+            'preco' => 10,
+            'categoria_id' => 1
         ]);
+
+        DB::table('produtos')->insert([
+            'nome' => 'Adubo',
+            'quantidade' => 120,
+            'preco' => 20,
+            'categoria_id' => 2
+        ]);
+
+
     }
 }

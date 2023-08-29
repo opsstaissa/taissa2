@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->integer('quantidade');
             $table->float('preco');
+            $table->bigInteger('categoria_id');
             $table->timestamps();
         });
     }
